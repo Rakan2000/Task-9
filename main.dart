@@ -1,44 +1,39 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyHomePage());
 }
 
-class MyApp extends StatefulWidget {
-  MyApp({super.key});
+class MyHomePage extends StatefulWidget {
+  MyHomePage({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyAppState extends State<MyApp> {
-  String Results = "results";
+class _MyHomePageState extends State<MyHomePage> {
+  String Results = "";
 
   final textController = TextEditingController();
 
   gradeCal() {
+    String FunctionResults = "";
     double scoreEntered = double.parse(textController.text);
-    if (scoreEntered >= 90) {
-      setState(() {
-        Results = "A";
-      });
-    } else if (scoreEntered >= 80) {
-      setState(() {
-        Results = "B";
-      });
-    } else if (scoreEntered >= 70) {
-      setState(() {
-        Results = "C";
-      });
-    } else if (scoreEntered >= 60) {
-      setState(() {
-        Results = "D";
-      });
-    } else {
-      setState(() {
-        Results = "Fail";
-      });
+    if (100 >= scoreEntered && scoreEntered >= 90) {
+      FunctionResults = "A";
+    } else if (90 > scoreEntered && scoreEntered >= 80) {
+      FunctionResults = "B";
+    } else if (80 > scoreEntered && scoreEntered >= 70) {
+      FunctionResults = "C";
+    } else if (70 > scoreEntered && scoreEntered >= 60) {
+      FunctionResults = "D";
+    } else if (60 > scoreEntered && scoreEntered >= 0) {
+      FunctionResults = "Fail";
     }
+
+    setState(() {
+      Results = FunctionResults;
+    });
   }
 
   // This widget is the root of your application.
@@ -49,8 +44,9 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         backgroundColor: Colors.white10,
         appBar: AppBar(
-          title: Text("grade calculator"),
-          backgroundColor: Colors.amber,
+          centerTitle: true,
+          title: Text("Grade Calculator"),
+          backgroundColor: const Color.fromARGB(255, 7, 255, 61),
         ),
         body: SafeArea(
             child: Column(
@@ -68,7 +64,13 @@ class _MyAppState extends State<MyApp> {
                       Icons.percent,
                       color: Colors.black26,
                     ),
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(100),
+                      borderSide: BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
                     labelText: 'Score',
                   ),
                 ),
